@@ -77,18 +77,18 @@ module.exports = {
           css-loader: 在.js import .css
           postcss-loader: 加入瀏覽器相容性前綴
           include: 表示需要 loader 轉換的文件 (引入)
-          exClude: 表示不需要 loader 轉換的文件 (排除)
+          exclude: 表示不需要 loader 轉換的文件 (排除)
         */
         use: extractCSS.extract(["css-loader", "postcss-loader"]),
         include: path.resolve("src/css"),
-        exClude: path.resolve("./node_modules")
+        exclude: path.resolve("./node_modules")
       },
       {
         test: /\.(sass|scss)/,
         // sass-loader: 在.js import .scss
         use: ["style-loader", "css-loader", "postcss-loader", "sass-loader"],
         include: path.resolve("src/scss"),
-        exClude: path.resolve("./node_modules")
+        exclude: path.resolve("./node_modules")
       },
       {
         /*
@@ -99,7 +99,7 @@ module.exports = {
         */
         test: /\.js$/,
         use: "babel-loader",
-        inClude: path.resolve(".")
+        include: path.resolve(".")
       },
       /*
         url-loader 需搭配 style-loader 來使用，適合用來處理小圖片如：icon
@@ -138,7 +138,7 @@ module.exports = {
           }
         ],
         include: path.resolve("src/images"),
-        exClude: path.resolve("./node_modules")
+        exclude: path.resolve("./node_modules")
       },
       // 為了讓 sass-loader 也能讀到字行副檔名而設置
       {
@@ -148,7 +148,7 @@ module.exports = {
           name: "[path][name].[ext]?[hash:8]"
         },
         include: path.resolve("src/assets"),
-        exClude: path.resolve("./node_modules")
+        exclude: path.resolve("./node_modules")
       }
     ]
   },
