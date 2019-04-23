@@ -1,4 +1,3 @@
-const webpack = require("webpack");
 const path = require("path");
 const ExtractTextPlugin = require("extract-text-webpack-plugin"); // 獨立css檔
 const CopyWebpackPlugin = require("copy-webpack-plugin");
@@ -13,8 +12,7 @@ module.exports = {
   context: path.resolve(__dirname, "./src"),
   // 注入點（需絕對路徑）
   entry: {
-    index: "./js/index.js",
-    about: "./js/about.js"
+    index: "index"
   },
   // 輸出的設定
   output: {
@@ -156,21 +154,15 @@ module.exports = {
   plugins 說明
     extractCSS: 將 css 獨立成一個檔
     CopyWebpackPlugin: 將不需要用 loader 處理的檔案，直接複製到目標目錄下
-    ProvidePlugin: 將套件變成全域性，因不易管理，非必要不要用
   */
   // 來解決 loader 無法解決的事情dk4
   plugins: [
     extractCSS,
     new CopyWebpackPlugin([{ from: "assets", to: "assets" }]),
-    new webpack.ProvidePlugin({
-      $: "jquery",
-      jQuery: "jquery",
-      "window.jQuery": "jquery"
-    }),
     new HtmlWebpackPlugin({
-      title: "Webpack前端自動化開發",
+      title: "Sunbet",
       filename: "index.html",
-      template: "html/template.html",
+      template: "index.html",
       viewport: "width=640, user-scalable=no",
       chunks: ["index", "vendor"]
     })
