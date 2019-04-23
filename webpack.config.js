@@ -70,6 +70,15 @@ module.exports = {
   module: {
     rules: [
       {
+        test: /\.(html)$/,
+        use: {
+          loader: "html-loader",
+          options: {
+            attrs: [":data-src"]
+          }
+        }
+      },
+      {
         test: /\.css$/,
         /*
           css-loader: 在.js import .css
@@ -158,12 +167,18 @@ module.exports = {
   // 來解決 loader 無法解決的事情dk4
   plugins: [
     extractCSS,
-    new CopyWebpackPlugin([{ from: "assets", to: "assets" }]),
+    new CopyWebpackPlugin([
+      {
+        from: path.resolve(__dirname, "./public"),
+        to: path.resolve(__dirname, "./dist")
+      }
+    ]),
     new HtmlWebpackPlugin({
       title: "Sunbet",
       filename: "index.html",
-      template: "index.html",
-      viewport: "width=640, user-scalable=no",
+      template: path.resolve(__dirname, "./public/index.html"),
+      viewport: "width=device-width, initial-scale=1.0",
+      favicon: path.resolve(__dirname, "./public/favicon.ico"),
       chunks: ["index", "vendor"]
     })
   ]
